@@ -1,0 +1,42 @@
+<div class="flex flex-row justify-center items-center min-h-screen ">
+  <form class="flex flex-col  justify-center  items-center sm:w-full  lg:w-2/4	h-2/4	 bg-gray-700	p-5  rounded-xl" [formGroup]="registerForm">
+    <h1 class="text-center	text-white text-3xl	my-5">Sign Up</h1>
+    <h1 class="text-center	text-red-600	 lg:text-2xl sm:text-sm	my-1" *ngIf="ShowError">Please Compelte Your Data</h1>
+    <mat-form-field class="w-full">
+      <mat-label>User Name</mat-label>
+      <input type="text" matInput  placeholder="Ex.abdelrhman" formControlName="userName">
+      <mat-error *ngIf="this.registerForm.get('userName')?.getError('pattern') && this.registerForm.get('userName')?.dirty">
+        <strong>small letters only</strong> and
+        Min. Length is <strong>8</strong> chars.
+      </mat-error>
+      <mat-error *ngIf="this.registerForm.get('userName')?.getError('required') ">
+        user name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Full Name</mat-label>
+      <input type="text" matInput  formControlName="fullName">
+      <mat-error *ngIf=" this.registerForm.get('fullName')?.getError('required')" >
+      Full Name is required
+      </mat-error>
+      <mat-error *ngIf=" this.registerForm.get('fullName')?.getError('pattern') && this.registerForm.get('fullName')?.dirty" >
+      Enter Valid Name
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="w-full">
+      <mat-label>Pasword</mat-label>
+      <input type="password" matInput  formControlName="password"  [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button matSuffix type="button" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="this.registerForm.get('password')?.getError('pattern') && this.registerForm.get('password')?.dirty">
+        Please enter a valid Password
+      </mat-error>
+      <mat-error *ngIf="this.registerForm.get('password')?.getError('required')">
+        Password is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <button type="submit" (click)="register()" class="rounded-full bg-indigo-500 p-5 w-1/2 text-green-200" >Sign up</button>
+  </form>
+
+</div>
